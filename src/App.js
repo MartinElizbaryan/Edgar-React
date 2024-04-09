@@ -1,21 +1,13 @@
 import { useState, Fragment } from "react";
-import { useCountState } from "./hooks/common";
+import { useCountState, useIsShowState } from "./hooks/common";
 
 const App = () => {
   const { count, addCount } = useCountState(0);
   const [age, setAge] = useState(5);
-  const [isShow, setIsShow] = useState(false);
+  const {isShow, showElement, hideElement, toggleElement} = useIsShowState(false)
 
   const editAge = (newAge) => {
     setAge(newAge);
-  };
-
-  const showElement = () => {
-    setIsShow(true);
-  };
-
-  const hideElement = () => {
-    setIsShow(false);
   };
 
   return (
@@ -23,6 +15,7 @@ const App = () => {
       {/* <button onClick={() => add()}>Add+</button> */}
       <button onClick={showElement}>Show</button>
       <button onClick={hideElement}>Hide</button>
+      <button onClick={toggleElement}>Toggle</button>
 
       <br />
       <br />
