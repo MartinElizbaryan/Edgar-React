@@ -1,10 +1,23 @@
 import { useState, Fragment } from "react";
-import { useCountState, useIsShowState } from "./hooks/common";
+import { useCountState, useShowState } from "./hooks/common";
 
 const App = () => {
   const { count, addCount } = useCountState(0);
   const [age, setAge] = useState(5);
-  const {isShow, showElement, hideElement, toggleElement} = useIsShowState(false)
+
+  const {
+    isShow: isShowButton,
+    show: showButton,
+    hide: hideButton,
+    toggle: toggleButton,
+  } = useShowState();
+
+  const {
+    isShow: isShowTextBlock,
+    show: showTextBlock,
+    hide: hideTextBlock,
+    toggle: toggleTextBlock,
+  } = useShowState(true);
 
   const editAge = (newAge) => {
     setAge(newAge);
@@ -13,14 +26,23 @@ const App = () => {
   return (
     <div>
       {/* <button onClick={() => add()}>Add+</button> */}
-      <button onClick={showElement}>Show</button>
-      <button onClick={hideElement}>Hide</button>
-      <button onClick={toggleElement}>Toggle</button>
+      <button onClick={showButton}>Show</button>
+      <button onClick={hideButton}>Hide</button>
+      <button onClick={toggleButton}>Toggle</button>
 
       <br />
       <br />
 
-      {isShow && (
+      <button onClick={showTextBlock}>Show</button>
+      <button onClick={hideTextBlock}>Hide</button>
+      <button onClick={toggleTextBlock}>Toggle</button>
+
+      <br />
+      <br />
+
+      {isShowTextBlock && <div>Some text</div>}
+
+      {isShowButton && (
         <Fragment>
           <button onClick={addCount}>Add+1</button>
           <button onClick={() => editAge(20)}>Set Age 20</button>

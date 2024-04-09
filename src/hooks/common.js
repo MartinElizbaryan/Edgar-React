@@ -10,20 +10,20 @@ export const useCountState = (defaultValue = 0) => {
   return { count, addCount };
 };
 
-export const useIsShowState = (defaultValue)=>{
-  const [isShow, setIsShow] = useState(defaultValue)
+export const useShowState = (defaultValue = false) => {
+  const [isShow, setIsShow] = useState(defaultValue);
 
-  const showElement = ()=>{
-    setIsShow(true)
-  }
-  
-  const hideElement =()=>{
-    setIsShow(false)
-  }
+  const show = () => {
+    setIsShow(true);
+  };
 
-  const toggleElement = ()=>{
-    isShow ? setIsShow(false) : setIsShow(true)
-    
-  }
-  return {isShow, showElement, hideElement, toggleElement}
-}
+  const hide = () => {
+    setIsShow(false);
+  };
+
+  const toggle = () => {
+    // isShow ? setIsShow(false) : setIsShow(true);
+    setIsShow(!isShow);
+  };
+  return { isShow, show, hide, toggle };
+};
