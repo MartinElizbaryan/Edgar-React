@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { getCollectionData, getUsers } from "./helpers/user";
 import { PLACEHOLDER_URL, QUERY_TYPE } from "./constants/common";
 
@@ -24,16 +24,14 @@ const App = () => {
   status : 'not done'
  }]
 
- const task = []
  const [tasks, setTasks] = useState([])
 
 
-
  
- const addRandomTask = (newValue) =>{
-  task.push(randomPersons[Math.floor(Math.random() * 4)])
- setTasks(newValue) 
- console.log(task);
+ const addRandomTask = () =>{
+ tasks.push(randomPersons[Math.floor(Math.random() * 4)])
+ setTasks([...tasks]) 
+ console.log(tasks);
  }
 
 
@@ -46,7 +44,7 @@ const App = () => {
             <th>Description</th>
             <th>Status</th>
             <th>Action</th>
-            <th><button onClick={()=> addRandomTask(task)}>add random task</button></th>
+            <th><button onClick={()=> addRandomTask()}>add random task</button></th>
           </tr>
         </thead>
         <tbody>
