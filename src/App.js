@@ -24,14 +24,16 @@ const App = () => {
   status : 'not done'
  }]
 
- const tasks = []
+ const task = []
+ const [tasks, setTasks] = useState([])
 
- const [x, setx] = useState(false)
+
+
  
  const addRandomTask = (newValue) =>{
- tasks.push(randomPersons[Math.floor(Math.random() * 4)]) 
- setx(newValue)
- console.log(tasks);
+  task.push(randomPersons[Math.floor(Math.random() * 4)])
+ setTasks(newValue) 
+ console.log(task);
  }
 
 
@@ -44,11 +46,11 @@ const App = () => {
             <th>Description</th>
             <th>Status</th>
             <th>Action</th>
-            <th><button onClick={()=> addRandomTask(true)}>add random task</button></th>
+            <th><button onClick={()=> addRandomTask(task)}>add random task</button></th>
           </tr>
         </thead>
         <tbody>
-          {x && tasks.map((item)=>{
+          {tasks.map((item)=>{
               (
                 <tr>
                   <td>{item.person}</td>
