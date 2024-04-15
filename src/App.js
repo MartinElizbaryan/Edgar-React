@@ -3,7 +3,7 @@ import { getCollectionData, getUsers } from "./helpers/user";
 import { PLACEHOLDER_URL, QUERY_TYPE } from "./constants/common";
 
 const App = () => {
- const tasks = [{
+ const randomPersons = [{
   person : 'edgar hambardzumyan',
   description : 'qwe@gmail.com',
   status : 'not done'
@@ -23,10 +23,15 @@ const App = () => {
   description : 'asd@gmail.com',
   status : 'not done'
  }]
+
+ const tasks = []
+
  const [x, setx] = useState(false)
  
- const addRandomTask = ()=>{
- setx(true)
+ const addRandomTask = (newValue) =>{
+ tasks.push(randomPersons[Math.floor(Math.random() * 4)]) 
+ setx(newValue)
+ console.log(tasks);
  }
 
 
@@ -39,13 +44,21 @@ const App = () => {
             <th>Description</th>
             <th>Status</th>
             <th>Action</th>
-            <th><button onClick={addRandomTask()}>add random task</button></th>
+            <th><button onClick={()=> addRandomTask(true)}>add random task</button></th>
           </tr>
         </thead>
         <tbody>
-          {(
-            <tr>{x && tasks[0].person}</tr>
-          )}
+          {x && tasks.map((item)=>{
+              (
+                <tr>
+                  <td>{item.person}</td>
+                  <td>{item.description}</td>
+                  <td>{item.status}</td>
+                </tr>
+              )
+            })}
+            
+          
 
           
         </tbody>
