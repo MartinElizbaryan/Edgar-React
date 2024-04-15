@@ -7,12 +7,15 @@ export const getCollectionData = ({ name, email, phone }) =>
 
 export const getCollectionDataWithId = ({ id, name, email, phone }) =>
   new User({ id, name, email, phone });
+  
 
 export const getUsers = async () => {
   const resJson = await fetch(`${PLACEHOLDER_URL}${QUERY_TYPE.users}`);
   const res = await resJson.json();
+  
 
   const collectionData = res.map(getCollectionDataWithId);
+
 
   return collectionData;
 };
