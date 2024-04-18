@@ -1,15 +1,14 @@
-class User {
-  static ID = 1
-  constructor(person, description, status, action) {
-   this.person = person
-   this.description = description
-   this.status = status
-   this.action = action
-   this.Id = User.getId()
+class Task {
+  static ID = 1;
+  constructor(name, description, status) {
+    this.id = Task.getId();
+    this.name = name;
+    this.description = description;
+    this.status = status;
   }
-  static getId(){
-    return User.ID ++
+  static getId() {
+    return Task.ID++;
   }
-} 
+}
 
-export default User
+export default Task;
