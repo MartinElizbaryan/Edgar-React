@@ -1,39 +1,39 @@
 import React, { useState } from "react";
+import User from "./classes/User";
+import { randomNames,randomSurnames,randomActions } from "./helpers/user";
 
-const randomPersons = [
-  {
-    person: "edgar hambardzumyan",
-    description: "qwe@gmail.com",
-    status: "not done",
-  },
-  {
-    person: "martin elizbaryan",
-    description: "rty@gmail.com",
-    status: "not done",
-  },
-  {
-    person: "vazgen alavedyan",
-    description: "uio@gmail.com",
-    status: "not done",
-  },
-  {
-    person: "karen mxitaryan",
-    description: "asd@gmail.com",
-    status: "not done",
-  },
-];
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
   const addRandomTask = () => {
-    const newTask =
-      randomPersons[Math.floor(Math.random() * randomPersons.length)];
+    const newTask = new User(randomNames(),randomSurnames(), 'nod done',randomActions())
 
     setTasks([...tasks, newTask]);
   };
 
-  console.log(tasks);
+  const del = (id)=>{
+    setTasks(tasks.filter((item)=>id !== item.Id))
+  }
+  const doneOrReopen = (action, id)=>{
+    if(action === 'ReOpen red'){
+      tasks.forEach((item)=>{
+        if(id === item.Id){
+          item.action = 'DoneGreen'
+          item.status = 'not done'
+        }
+      })
+      setTasks([...tasks])
+    }else{
+      tasks.forEach((item)=>{
+        if(id === item.Id){
+          item.action = 'ReOpen red'
+          item.status = 'Done'
+        }
+      })
+      setTasks([...tasks])
+    }
+  }
 
   return (
     <div>
@@ -52,6 +52,8 @@ const App = () => {
               <td>{item.person}</td>
               <td>{item.description}</td>
               <td>{item.status}</td>
+              <td><button onClick={() => doneOrReopen(item.action, item.Id)}>{item.action}</button></td>
+              <td><button onClick={() => del(item.Id)}>delete</button></td>
             </tr>
           ))}
         </tbody>

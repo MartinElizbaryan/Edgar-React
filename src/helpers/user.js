@@ -1,21 +1,22 @@
-import User from "../classes/User";
-import "../index.css";
-import { PLACEHOLDER_URL, QUERY_TYPE } from "../constants/common";
+export const randomNames = ()=>{
+  const names = ['edgar', 'martin', 'abgar', 'vazgen']
+  const randomName = names[Math.floor(Math.random() * names.length)]
+  return randomName
+}
 
-export const getCollectionData = ({ name, email, phone }) =>
-  new User({ name, email, phone });
-
-export const getCollectionDataWithId = ({ id, name, email, phone }) =>
-  new User({ id, name, email, phone });
-  
-
-export const getUsers = async () => {
-  const resJson = await fetch(`${PLACEHOLDER_URL}${QUERY_TYPE.users}`);
-  const res = await resJson.json();
-  
-
-  const collectionData = res.map(getCollectionDataWithId);
+export const randomSurnames = ()=>{
+  const surnames = ['hambardzumyan', 'elizbaryan', 'hakobyan', 'sargsyan']
+  const randomSurname = surnames[Math.floor(Math.random() * surnames.length)]
+  return randomSurname
+}
 
 
-  return collectionData;
-};
+
+
+export const randomActions = ()=>{
+  const action = ['DoneGreen', 'ReOpen red']
+  const randomAction = action[Math.floor(Math.random() * action.length)]
+  return randomAction
+}
+
+
