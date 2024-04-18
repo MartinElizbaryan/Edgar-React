@@ -18,17 +18,22 @@ const App = () => {
   const doneOrReopen = (action, id)=>{
     if(action === 'ReOpen red'){
       tasks.forEach((item)=>{
+        const button = document.getElementById(`inp${item.Id}`)
         if(id === item.Id){
           item.action = 'DoneGreen'
           item.status = 'not done'
+          button.style.background = 'green'
         }
       })
       setTasks([...tasks])
     }else{
       tasks.forEach((item)=>{
+        const button = document.getElementById(`inp${item.Id}`)
         if(id === item.Id){
           item.action = 'ReOpen red'
           item.status = 'Done'
+          button.style.background = 'red'
+
         }
       })
       setTasks([...tasks])
@@ -52,7 +57,7 @@ const App = () => {
               <td>{item.person}</td>
               <td>{item.description}</td>
               <td>{item.status}</td>
-              <td><button onClick={() => doneOrReopen(item.action, item.Id)}>{item.action}</button></td>
+              <td><button id={`inp${item.Id}`} onClick={() => doneOrReopen(item.action, item.Id)}>{item.action}</button></td>
               <td><button onClick={() => del(item.Id)}>delete</button></td>
             </tr>
           ))}

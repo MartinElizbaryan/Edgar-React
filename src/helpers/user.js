@@ -10,12 +10,9 @@ export const randomSurnames = ()=>{
   return randomSurname
 }
 
-
-
-
 export const randomActions = ()=>{
-  const action = ['DoneGreen', 'ReOpen red']
-  const randomAction = action[Math.floor(Math.random() * action.length)]
+  const actions = ['DoneGreen', 'ReOpen red']
+  const randomAction = actions[Math.floor(Math.random() * actions.length)]
   return randomAction
 }
 
