@@ -2,13 +2,13 @@ import React from "react";
 import { useTasks } from "./Tasks.hooks";
 
 const Tasks = () => {
-  const { addRandomTask, tasks, reopenTask, doneTask, deleteTask } = useTasks();
+  const { addRandomTask, tasks, reopenTask, doneTask, deleteTask, sortByName, sortByStatus} = useTasks();
 
   return (
     <div>
       <button onClick={() => addRandomTask()}>add random task</button>
-      <button>Sort By Name</button>
-      <button>Sort By Status</button>
+      <button onClick={() => sortByName()}>Sort By Name</button>
+      <button onClick={() => sortByStatus()}>Sort By Status</button>
       <button>Sort By Status (Done)</button>
 
       <br />
