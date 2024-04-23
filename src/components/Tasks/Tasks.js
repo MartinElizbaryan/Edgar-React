@@ -11,6 +11,10 @@ const Tasks = () => {
     sortByName,
     sortByStatus,
     sortByStatusDone,
+    allDone,
+    allReOpen,
+    statusReverse,
+    allReOpenedStatusDelete,
   } = useTasks();
 
   return (
@@ -19,6 +23,10 @@ const Tasks = () => {
       <button onClick={sortByName}>Sort By Name</button>
       <button onClick={sortByStatus}>Sort By Status</button>
       <button onClick={sortByStatusDone}>Sort By Status (Done)</button>
+      <button onClick={allDone}>All Done</button>
+      <button onClick={allReOpen}>All ReOpen</button>
+      <button onClick={statusReverse}>StatusReverse</button>
+      <button onClick={allReOpenedStatusDelete}>allReOpenedStatusDelete</button>
 
       <br />
       <br />
@@ -38,7 +46,7 @@ const Tasks = () => {
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.description}</td>
-              <td>{item.status ? "Done" : "-"}</td>
+              <td>{item.status ? "+" : "-"}</td>
               <td>
                 {item.status ? (
                   <button

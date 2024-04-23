@@ -87,8 +87,8 @@ export const useTasks = () => {
   const sortByStatusDone = () => {
     // Todo - change like preview code
 
-    setTasks(
-      [...tasks].sort((a, b) => {
+    const cloneTasks = [...tasks];
+      cloneTasks.sort((a, b) => {
         if (settings.status.isToDown) {
           if (a.status > b.status) {
             return 1;
@@ -98,10 +98,34 @@ export const useTasks = () => {
           }
         }
       })
-    );
+    setTasks(cloneTasks)
+    setSettings({
+      ...settings,
+      status: { isToDown: !settings.status.isToDown, isActive: true },
+    });
   };
 
-  console.table(tasks);
+  const allDone = ()=>{
+    const cloneTasks = [...tasks]
+    cloneTasks.map((item)=> item.status = true)
+    setTasks(cloneTasks)
+  }
+  
+  const allReOpen = ()=>{
+    const cloneTasks = [...tasks]
+    cloneTasks.map((item)=> item.status = false)
+    setTasks(cloneTasks)
+  }
+
+  const statusReverse = ()=>{
+    const cloneTasks = [...tasks]
+    cloneTasks.map((item) => item.status = !item.status)
+    setTasks(cloneTasks)
+  }
+
+  const allReOpenedStatusDelete = ()=>{
+    setTasks([...tasks].filter((item)=> item.status === true))
+  }
 
   return {
     addRandomTask,
@@ -112,5 +136,9 @@ export const useTasks = () => {
     sortByName,
     sortByStatus,
     sortByStatusDone,
+    allDone,
+    allReOpen,
+    statusReverse,
+    allReOpenedStatusDelete
   };
 };
