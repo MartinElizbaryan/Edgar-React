@@ -8,16 +8,16 @@ import {
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [isDown, setIsDown] = useState({
-      name: {
-        isToDown: true,
-        isActive: false,
-      },
-      status: {
-        isToDown: false,
-        isActive: true,
-      }
-  })
+  const [settings, setSettings] = useState({
+    name: {
+      isToDown: true,
+      isActive: false,
+    },
+    status: {
+      isToDown: false,
+      isActive: true,
+    },
+  });
 
   const addRandomTask = () => {
     const newTask = new Task(
@@ -57,56 +57,60 @@ export const useTasks = () => {
     setTasks(changedTasks);
   };
 
-  const sortByName = () =>{
-    setTasks([...tasks].sort((a, b)=> {
-      if(isDown.name.isToDown){
-        if (a.name > b.name) {
-          return 1
-        }
-        if (a.name < b.name) {
-          return -1
-        }
-        return 0
+  const sortByName = () => sortByField("name");
 
-      }else{
-        if (a.name > b.name) {
-          return -1
-        }
-        if (a.name < b.name) {
-          return 1
-        }
-        return 0
+  const sortByStatus = () => sortByField("status");
+
+  const sortByField = (field) => {
+    const cloneTasks = [...tasks];
+
+    cloneTasks.sort((a, b) => {
+      if (a[field] > b[field]) {
+        return settings[field].isToDown ? 1 : -1;
       }
-    }))
-    setIsDown({...isDown, name : {isToDown : !isDown.name.isToDown, isActive : true}})
-  }
 
-  const sortByStatus =()=>{
-    setTasks([...tasks].sort((a,b) => {
-      if(isDown.status.isToDown){
-        return a.status - b.status
-      }else{
-        return b.status - a.status
+      if (a[field] < b[field]) {
+        return settings[field].isToDown ? -1 : 1;
       }
-    }))
-    setIsDown({...isDown, status : {isToDown : !isDown.status.isToDown, isActive : true}})
-  }
 
-  const sortByStatusDone = ()=>{
-    setTasks([...tasks].sort((a,b)=>{
-      if(isDown.status.isToDown){
-        if(a.status > b.status){
+      return 0;
+    });
 
-          return 1
+    setTasks(cloneTasks);
+
+    setSettings({
+      ...settings,
+      [field]: { isToDown: !settings[field].isToDown, isActive: true },
+    });
+  };
+
+  const sortByStatusDone = () => {
+    // Todo - change like preview code
+
+    setTasks(
+      [...tasks].sort((a, b) => {
+        if (settings.status.isToDown) {
+          if (a.status > b.status) {
+            return 1;
+          }
+          if (a.status < b.status) {
+            return -1;
+          }
         }
-        if(a.status < b.status){
-  
-          return -1
-        }
+      })
+    );
+  };
 
-      }
-    }))
-  }
+  console.table(tasks);
 
-  return { addRandomTask, tasks, reopenTask, doneTask, deleteTask, sortByName, sortByStatus,sortByStatusDone };
+  return {
+    addRandomTask,
+    tasks,
+    reopenTask,
+    doneTask,
+    deleteTask,
+    sortByName,
+    sortByStatus,
+    sortByStatusDone,
+  };
 };
