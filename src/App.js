@@ -1,9 +1,7 @@
+import Main from "./components/main/Main";
+
 const App = () => {
-  return (
-    <div>
-      <h1>Count</h1>
-    </div>
-  );
+  return <Main />;
 };
 
 export default App;
