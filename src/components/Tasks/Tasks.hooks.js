@@ -8,6 +8,16 @@ import {
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [isDown, setIsDown] = useState({
+      name: {
+        isToDown: true,
+        isActive: false,
+      },
+      status: {
+        isToDown: false,
+        isActive: true,
+      }
+  })
 
   const addRandomTask = () => {
     const newTask = new Task(
@@ -46,24 +56,57 @@ export const useTasks = () => {
 
     setTasks(changedTasks);
   };
-  const [isDown, setIsDown] = useState([1,-1])
 
   const sortByName = () =>{
     setTasks([...tasks].sort((a, b)=> {
-      setIsDown([...isDown].reverse())
-      if (a.name > b.name) {
-        return isDown[0]
+      if(isDown.name.isToDown){
+        if (a.name > b.name) {
+          return 1
+        }
+        if (a.name < b.name) {
+          return -1
+        }
+        return 0
+
+      }else{
+        if (a.name > b.name) {
+          return -1
+        }
+        if (a.name < b.name) {
+          return 1
+        }
+        return 0
       }
-      if (a.name < b.name) {
-        return isDown[1]
-      }
-      return 0
     }))
+    setIsDown({...isDown, name : {isToDown : !isDown.name.isToDown, isActive : true}})
   }
 
   const sortByStatus =()=>{
-    setTasks([...tasks].sort((a,b) => b.status - a.status))
+    setTasks([...tasks].sort((a,b) => {
+      if(isDown.status.isToDown){
+        return a.status - b.status
+      }else{
+        return b.status - a.status
+      }
+    }))
+    setIsDown({...isDown, status : {isToDown : !isDown.status.isToDown, isActive : true}})
   }
 
-  return { addRandomTask, tasks, reopenTask, doneTask, deleteTask, sortByName, sortByStatus };
+  const sortByStatusDone = ()=>{
+    setTasks([...tasks].sort((a,b)=>{
+      if(isDown.status.isToDown){
+        if(a.status > b.status){
+
+          return 1
+        }
+        if(a.status < b.status){
+  
+          return -1
+        }
+
+      }
+    }))
+  }
+
+  return { addRandomTask, tasks, reopenTask, doneTask, deleteTask, sortByName, sortByStatus,sortByStatusDone };
 };
