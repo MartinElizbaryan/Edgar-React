@@ -88,44 +88,48 @@ export const useTasks = () => {
     // Todo - change like preview code
 
     const cloneTasks = [...tasks];
-      cloneTasks.sort((a, b) => {
-        if (settings.status.isToDown) {
-          if (a.status > b.status) {
-            return 1;
-          }
-          if (a.status < b.status) {
-            return -1;
-          }
+    cloneTasks.sort((a, b) => {
+      if (settings.status.isToDown) {
+        if (a.status > b.status) {
+          return 1;
         }
-      })
-    setTasks(cloneTasks)
+        if (a.status < b.status) {
+          return -1;
+        }
+      }
+    });
+    setTasks(cloneTasks);
     setSettings({
       ...settings,
       status: { isToDown: !settings.status.isToDown, isActive: true },
     });
   };
 
-  const allDone = ()=>{
-    const cloneTasks = [...tasks]
-    cloneTasks.map((item)=> item.status = true)
-    setTasks(cloneTasks)
-  }
-  
-  const allReOpen = ()=>{
-    const cloneTasks = [...tasks]
-    cloneTasks.map((item)=> item.status = false)
-    setTasks(cloneTasks)
-  }
+  // Todo vonc pajmanavorvanq
+  const allDone = () => {
+    const changedTasks = tasks.map((item) => {
+      return { ...item, status: true };
+    });
+    setTasks(changedTasks);
+  };
 
-  const statusReverse = ()=>{
-    const cloneTasks = [...tasks]
-    cloneTasks.map((item) => item.status = !item.status)
-    setTasks(cloneTasks)
-  }
+  const allReOpen = () => {
+    const changedTasks = tasks.map((item) => {
+      return { ...item, status: false };
+    });
+    setTasks(changedTasks);
+  };
 
-  const allReOpenedStatusDelete = ()=>{
-    setTasks([...tasks].filter((item)=> item.status === true))
-  }
+  const statusReverse = () => {
+    const cloneTasks = [...tasks];
+    cloneTasks.map((item) => (item.status = !item.status));
+    setTasks(cloneTasks);
+  };
+
+  const allReOpenedStatusDelete = () => {
+    const doneTasks = tasks.filter((item) => item.status === true);
+    setTasks(doneTasks);
+  };
 
   return {
     addRandomTask,
@@ -139,6 +143,21 @@ export const useTasks = () => {
     allDone,
     allReOpen,
     statusReverse,
-    allReOpenedStatusDelete
+    allReOpenedStatusDelete,
   };
 };
+
+/**
+    const a = {
+      a: 1,
+    };
+
+    const b = {
+      a: 1,
+    };
+
+    console.log(a === b);
+
+    console.log(cloneTasks === tasks);
+    console.log(cloneTasks[0] === tasks[0]);
+ */
