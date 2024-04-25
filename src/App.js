@@ -1,13 +1,9 @@
-import sum, { minus } from "./main";
-import { sum as suuuuum, multiple } from "./fn2";
+import  { Main} from "./main";
+import { sum as suuuuum, mul} from "./main.hooks";
 
 const App = () => {
 
-  return (
-    <div>
-      <h1>Count: {result}</h1>
-    </div>
-  );
+  return (<Main/>);
 };
 
 export default App;
