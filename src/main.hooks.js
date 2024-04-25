@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 const useMain = ()=>{
-    const [show, setShow] = useState(true)
-    const[hide, setHide] = useState()
+    const [isShow, setIsShow] = useState(true)
+    return {isShow, setIsShow}
 }
-export {show, setShow, hide, setHide} = useMain
 export default useMain
 
