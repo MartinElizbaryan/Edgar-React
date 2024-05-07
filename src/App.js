@@ -1,6 +1,6 @@
 import  Main  from "./main";
 
 const App = () => {
-  return (<Main/>)
+  return <Main/>
 }
 export default App;
